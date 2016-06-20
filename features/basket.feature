@@ -13,6 +13,6 @@ Feature: Basket
   @javascript
   Scenario: User can add to basket some quantity of a specific product color
     Given I am on "us/millamia-naturally-soft-merino/"
-    Given I take 10 yarns in "Midnight" colour to basket
+    When I take 10 yarns in "Midnight" colour to basket
     And I follow to checkout
     Then 10 "MillaMia Naturally Soft Merino Yarn - Midnight" should be in my basket
