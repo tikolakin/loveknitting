@@ -1,0 +1,24 @@
+default:
+  suites:
+    default:
+      contexts:
+        - FeatureContext
+        - HelpContext:
+           parameters:
+             screens: %paths.base%/build/screenshots/
+      filters:
+        tags: '~@WIP'
+  extensions:
+    SensioLabs\Behat\PageObjectExtension: ~
+    Behat\MinkExtension:
+      base_url: http://www.loveknitting.com/
+      selenium2: ~
+      sessions:
+        javascript:
+          selenium2:
+            wd_host: http://selenium:4444/wd/hub
+            browser: chrome
+            capabilities:
+              extra_capabilities:
+                chromeOptions:
+                  args: [--dns-prefetch-disable]
