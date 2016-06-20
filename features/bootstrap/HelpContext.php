@@ -10,7 +10,6 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Hook\Scope\BeforeStepScope;
 use Behat\Behat\Hook\Scope\AfterStepScope;
-use Behat\Mink\Element\NodeElement;
 
 /**
  * Helper context class.
@@ -43,7 +42,7 @@ class HelpContext extends RawMinkContext implements SnippetAcceptingContext {
   public function tuneSeleniumBeforeScenario() {
     $driver = $this->getSession()->getDriver();
     if ($driver instanceof Behat\Mink\Driver\Selenium2Driver) {
-      $driver->resizeWindow(1600, 1200);
+      $driver->resizeWindow(1600, 2200);
     }
   }
 
@@ -69,7 +68,7 @@ class HelpContext extends RawMinkContext implements SnippetAcceptingContext {
             $scope->getStep()->getText())
         );
         system('mkdir -p ' . escapeshellarg($this->parameters['screens']));
-        $file_name = date_format(new DateTime(), "-Y-m-d-H-i-s") . $feature_name . '_' . $step_name . '.png';
+        $file_name = date_format(new DateTime(), "Y-m-d-H-i-s-") . $feature_name . '-' . $step_name . '.png';
         file_put_contents($this->parameters['screens'] . $file_name, $this->getSession()->getScreenshot());
         $message = '';
         if (getenv('BUILD_URL')) {

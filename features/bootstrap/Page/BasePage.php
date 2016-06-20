@@ -87,4 +87,33 @@ class BasePage extends Page {
     }
    }
 
+  /**
+   * Scroll element into view before interact with it.
+   *
+   * @param $scrollable_area
+   * @param $target_selector
+   * @throws Exception
+   *
+   */
+  public function scrollIntoView($scrollable_area, $target_selector) {
+    if (!$this->getDriver() instanceof Selenium2Driver || strlen($target_selector) < 2) {
+      return;
+    }
+
+    $script = sprintf("
+      jQuery('%s').animate({
+        scrollTop: jQuery('%s').offset().top - 100
+      }, 1000);",
+      $scrollable_area, $target_selector);
+    // Execute the script.
+    try {
+      $this->getDriver()->executeScript($script);
+    }
+    catch (Exception $e) {
+      // Do nothing.
+    }
+    // Wait till this script scroll element into view.
+    $this->waitAjax();
+  }
+
 }
